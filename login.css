@@ -1,0 +1,175 @@
+/* Gaya Umum */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Kontainer utama */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1100px;
+    margin: 40px auto;  /* memberi margin atas dan bawah untuk tampilan desktop */
+    overflow: hidden;
+}
+
+/* Info kiri */
+.info-container {
+    flex: 0 0 45%;  /* 45% untuk Info */
+    padding: 50px;
+    background-color: #f4f4f4;
+    text-align: left;
+    border-right: 2px solid #e5e5e5;  /* memberi batas antara bagian info dan form */
+}
+
+/* Form login */
+.login-container {
+    flex: 0 0 55%;  /* 55% untuk Form */
+    padding: 50px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Judul */
+h1, h2 {
+    color: #005c3b;
+    margin-bottom: 20px;
+}
+
+/* Label */
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Input fields */
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+/* Tombol */
+button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #00a877;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #00895c;
+}
+
+/* Pesan error login */
+#error-message {
+    color: red;
+    display: none;
+}
+
+/* Responsif untuk layar lebih kecil dari 1024px */
+@media screen and (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .info-container {
+        flex: 1;
+        border-right: none;
+        padding: 30px;
+    }
+
+    .login-container {
+        flex: 1;
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    label {
+        font-size: 1rem;
+    }
+
+    input {
+        font-size: 1rem;
+    }
+
+    button {
+        font-size: 1.1rem;
+    }
+}
+
+/* Responsif untuk ponsel dan tablet */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        flex-direction: column;
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .info-container, .login-container {
+        flex: 1;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    input {
+        font-size: 1rem;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+}

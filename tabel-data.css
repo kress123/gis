@@ -1,0 +1,312 @@
+/* Reset dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* === Sidebar === */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #880b0b; /* Warna merah khas Sampoerna Agro */
+    padding: 20px;
+    color: white;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background-color: #a52a2a;
+}
+
+/* === Main Content === */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* === Header === */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* === Tabel Data === */
+.data-table {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.data-table h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* === Tombol Aksi === */
+button {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* === Peta Interaktif === */
+.map-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    height: 80vh;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+/* === Kontainer Grafik === */
+.chart-container {
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.chart-container h2 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+canvas {
+    max-width: 100%;
+    height: 300px;
+}
+
+/* === Modal Pop-up === */
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    text-align: center;
+}
+
+/* === Tombol Lihat Peta & Hapus Data === */
+.lihat-peta {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.lihat-peta:hover {
+    background-color: #2980b9;
+}
+
+.hapus-data {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+.hapus-data:hover {
+    background-color: #c0392b;
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* **Tablet dan Mobile** */
+@media screen and (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: 250px;
+        position: fixed;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .map-container {
+        height: 60vh;
+    }
+
+    .data-table {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* **Mobile (Smartphone)** */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .dashboard-header {
+        text-align: center;
+    }
+
+    .map-container {
+        height: 50vh;
+    }
+
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-container input {
+        width: 100%;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+
+    .search-container button {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .chart-container canvas {
+        height: 250px;
+    }
+}
+/* Container Logo */
+.logo-container {
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  /* Ukuran Logo */
+  .logo-container img {
+    width: 150px;  /* Sesuaikan ukuran logo */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  

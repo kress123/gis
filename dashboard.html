@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - WebGIS</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
+    <link rel="stylesheet" href="dashboard.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigasi -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Sampoerna Agro">
+        </div>
+
+        <h2>WebGIS Sampoerna Agro</h2>
+        <ul>
+            <li><a href="dashboard.html" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="peta.html"><i class="fas fa-map"></i> Peta</a></li>
+            <li><a href="tabel-data.html"><i class="fas fa-database"></i> Data Tanaman</a></li>
+            <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </aside>
+
+    <!-- Konten Utama -->
+    <main class="main-content">
+        <header class="dashboard-header">
+            <h1>Sistem Informasi WebGIS Sampoerna Agro TbK.</h1>
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i> akun
+            </div>
+        </header>
+
+       <!-- Informasi Latar Belakang -->
+<section class="info-container">
+    <h2>Profil Perusahaan</h2>
+    <p>
+        PT Sampoerna Agro Tbk (SGRO) didirikan dengan nama PT Selapan Jaya pada tanggal 7 Juni 1993. 
+        Nama Perusahaan kemudian diubah menjadi PT Sampoerna Agro Tbk pada tahun 2007. 
+        PT Sampoerna Agro dan anak perusahaannya adalah perusahaan perkebunan yang berupaya menjadi 
+        perkebunan yang terintegrasi dan terdiversifikasi dengan kepentingan jangka panjang yang berkelanjutan.
+    </p>
+    <p>
+        Perusahaan ini bergerak di sektor perkebunan kelapa sawit, pengolahan minyak sawit mentah (CPO), 
+        dan produk turunannya. Sampoerna Agro juga aktif dalam penelitian dan pengembangan varietas 
+        unggul tanaman guna meningkatkan hasil produksi yang lebih efisien dan berkelanjutan.
+    </p>
+</section>
+
+<!-- Informasi Tentang WebGIS -->
+<section class="info-container">
+    <h2>Tentang WebGIS</h2>
+    <p>
+        WebGIS Sampoerna Agro adalah platform berbasis Geographic Information System (GIS) 
+        yang dirancang untuk memudahkan pengelolaan dan pemantauan data geografis terkait 
+        lahan perkebunan, distribusi tanaman, serta analisis spasial dalam operasional perusahaan.
+    </p>
+    <p>
+        Sistem ini memiliki berbagai fitur seperti visualisasi peta interaktif, penginputan 
+        data koordinat tanaman, serta analisis spasial berbasis peta yang dapat membantu 
+        pengambilan keputusan berbasis data.
+    </p>
+    <ul>
+    
+</section>
+
+
+       
+ <!-- Peta Interaktif -->
+        <section class="map-container">
+            <h2>Peta Interaktif</h2>
+            
+            <!-- Pilihan Basemap -->
+            <div class="map-controls">
+                <label for="basemapSelect">Pilih Jenis Peta:</label>
+                <select id="basemapSelect">
+                    <option value="osm">OpenStreetMap</option>
+                    <option value="osmHot">OpenStreetMap HOT</option>
+                    <option value="googleSatellite">Google Satelit</option>
+                    <option value="googleStreet">Google Street</option>
+                    <option value="cartoLight">Carto Light</option>
+                    <option value="cartoDark">Carto Dark</option>
+                </select>
+            </div>
+
+            <!-- Input Pencarian Lokasi -->
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Cari lokasi...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+
+            <!-- Elemen Peta -->
+            <div id="map"></div>
+        </section>
+    </main>
+
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script>
+        // Inisialisasi Peta
+        var map = L.map('map').setView([-2.5489, 118.0149], 5);
+
+        // Definisikan tile layer
+        var osmStandard = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var osmHot = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors, Tiles courtesy of HOT'
+        });
+
+        var googleSatellite = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+        var googleStreet = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+        var cartoLight = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 19
+        });
+
+        var cartoDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 19
+        });
+
+        // Kontrol layer
+        var baseMaps = {
+             "Google Satelit": googleSatellite,
+             "OpenStreetMap": osmStandard,
+            "OpenStreetMap HOT": osmHot,
+            "Google Street": googleStreet,
+            "Carto Light": cartoLight,
+            "Carto Dark": cartoDark
+        };
+        L.control.layers(baseMaps).addTo(map);
+
+        // Event untuk dropdown basemap
+        document.getElementById('basemapSelect').addEventListener('change', function (e) {
+            var selectedLayer = e.target.value;
+            
+            map.eachLayer(function(layer) {
+                map.removeLayer(layer);
+            });
+
+            if (selectedLayer === 'osm') {
+                osmStandard.addTo(map);
+            } else if (selectedLayer === 'osmHot') {
+                osmHot.addTo(map);
+            } else if (selectedLayer === 'googleSatellite') {
+                googleSatellite.addTo(map);
+            } else if (selectedLayer === 'googleStreet') {
+                googleStreet.addTo(map);
+            } else if (selectedLayer === 'cartoLight') {
+                cartoLight.addTo(map);
+            } else if (selectedLayer === 'cartoDark') {
+                cartoDark.addTo(map);
+            }
+        });
+
+        // Fungsi Pencarian Lokasi
+        document.getElementById('search-btn').addEventListener('click', function () {
+            var query = document.getElementById('search-input').value;
+            if (query) {
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
+                            map.setView([lat, lon], 15);
+                            L.marker([lat, lon]).addTo(map)
+                                .bindPopup(`Lokasi: ${query}`)
+                                .openPopup();
+                        } else {
+                            alert("Lokasi tidak ditemukan!");
+                        }
+                    })
+                    .catch(error => console.error(error));
+            }
+        });
+    </script>
+
+</body>
+</html>

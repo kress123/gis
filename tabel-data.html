@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Koordinat</title>
+
+    <!-- CSS Leaflet, FontAwesome, Chart.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="tabel-data.css"> 
+
+    <!-- JS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="logo-container">
+        <img src="logo.png" alt="Logo Sampoerna Agro">
+    </div>
+    <h2>WebGIS Sampoerna Agro</h2>
+    <ul>
+        <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="peta.html"><i class="fas fa-map"></i> Peta</a></li>
+        <li><a href="tabel-data.html" class="active"><i class="fas fa-database"></i> Data Koordinat</a></li>
+        <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</aside>
+
+<!-- Main Content -->
+<main class="main-content">
+    <header class="dashboard-header">
+        <h1>Data Koordinat & Analisis Pupuk</h1>
+    </header>
+
+    <!-- Tabel Data -->
+    <section class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Lab ID</th>
+                    <th>Blok</th>
+                    <th>Nomor Plot</th>
+                    <th>Nomor Pokok</th>
+                    <th>Nomor Daun</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>N%</th>
+                    <th>P%</th>
+                    <th>K%</th>
+                    <th>Ca%</th>
+                    <th>Mg%</th>
+                    <th>B (ppm)</th>
+                    <th>Periode Pupuk</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="dataTabelBody">
+                <!-- Data akan diisi dengan JavaScript -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Grafik Analisis Pupuk -->
+    <section class="chart-container">
+        <h2>Analisis Pupuk & Unsur Hara</h2>
+        <canvas id="pupukChart"></canvas>
+    </section>
+
+    <!-- Peta untuk menampilkan lokasi -->
+    <section class="map-container">
+        <div id="map"></div>
+    </section>
+</main>
+
+<!-- JS -->
+<script src="tabel-data.js"></script>
+<script src="grafik-analisis.js"></script>
+
+</body>
+</html>

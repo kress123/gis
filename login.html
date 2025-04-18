@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login WebGIS</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Bagian Kiri: Informasi WebGIS -->
+        <div class="info-container">
+            <h1>Selamat Datang di WebGIS Sampoerna Agro</h1>
+            <p>
+                WebGIS ini dikembangkan untuk mendukung pengelolaan perkebunan kelapa sawit dengan sistem berbasis GIS. 
+                Dengan teknologi pemetaan interaktif, pengguna dapat mengakses data tanaman, lokasi koordinat, dan statistik 
+                dalam satu platform yang terintegrasi.
+            </p>
+            <h2>Tentang Sampoerna Agro</h2>
+            <p>
+                Sampoerna Agro adalah perusahaan yang bergerak di bidang perkebunan kelapa sawit dan produk turunannya. 
+                Dengan komitmen terhadap keberlanjutan dan inovasi, kami terus mengembangkan teknologi untuk meningkatkan efisiensi dan produktivitas perkebunan.
+            </p>
+        </div>
+
+        <!-- Bagian Kanan: Form Login -->
+        <div class="login-container">
+            <h2>Login WebGIS</h2>
+            
+            <label for="username">Username/Email:</label>
+            <input type="text" id="username" placeholder="Masukkan username/email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Masukkan password" required>
+
+            <!-- Pesan Error Login -->
+            <p id="error-message" style="color: red; display: none;">Username atau password salah!</p>
+
+            <!-- Tombol Login User -->
+            <button id="loginUser">Login sebagai User</button>
+
+            <!-- Tombol Login Admin -->
+            <button id="loginAdmin">Login sebagai Admin</button>
+
+            <!-- Tombol Buat Akun Baru -->
+            <button id="register">Buat Akun Baru</button>
+        </div>
+    </div>
+
+    <!-- File JavaScript untuk Logika Login -->
+    <script src="login.js"></script>
+
+</body>
+</html>

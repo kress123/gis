@@ -1,0 +1,237 @@
+/* Reset dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+}
+
+/* === Sidebar === */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #880b0b; /* Warna merah khas Sampoerna Agro */
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #a52a2a;
+}
+
+/* === Main Content === */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* === Header === */
+.dashboard-header {
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dashboard-header h1 {
+    color: #333;
+}
+
+/* === Container Form & Tabel === */
+.container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Form */
+.form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1 1 300px;
+    min-width: 280px;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.form-container input {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-container button {
+    margin-top: 15px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.form-container button:hover {
+    background: #0056b3;
+}
+
+/* Tabel */
+.data-table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 2 1 500px;
+    overflow-x: auto;
+}
+
+.data-table-container h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.data-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table-container th,
+.data-table-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.data-table-container th {
+    background: #f2f2f2;
+}
+
+.data-table-container tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.btn-hapus {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.3s;
+}
+
+.btn-hapus:hover {
+    background: #c0392b;
+}
+
+/* === Peta di Bawah Tabel === */
+.map-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .map-controls {
+    margin-bottom: 10px;
+  }
+  
+  /* Ukuran peta disesuaikan agar fleksibel dan proporsional */
+  #map {
+    width: 100%;
+    height: 500px; /* Ukuran sedang untuk tampilan desktop */
+    border-radius: 5px;
+  }
+  
+  /* Ukuran peta untuk perangkat kecil (tablet & HP) */
+  @media (max-width: 768px) {
+    #map {
+      height: 350px;
+    }
+  }
+  
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .sidebar {
+        display: none;
+    }
+}
+
+/* === Container Logo === */
+.logo-container {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.logo-container img {
+    width: 150px; /* Sesuaikan ukuran logo */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
