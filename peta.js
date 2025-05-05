@@ -27,7 +27,7 @@ document.getElementById("basemapSelect").addEventListener("change", function () 
     tampilkanDataKoordinat(); // Tambahkan marker kembali
 });
 
-// Ambil data dari localStorage dan tampilkan di peta
+// Fungsi menampilkan marker dan info popup
 function tampilkanDataKoordinat() {
     const koordinatData = JSON.parse(localStorage.getItem("koordinatData")) || [];
 
@@ -39,17 +39,29 @@ function tampilkanDataKoordinat() {
 
         const marker = L.marker([lat, lon]).addTo(map);
 
-        // Popup dengan tombol rute
-        marker.bindPopup(`
+        // Siapkan konten popup
+        let popupContent = `
             <strong>Lab ID:</strong> ${data.labId}<br>
             <strong>Blok:</strong> ${data.blok}<br>
             <strong>Plot:</strong> ${data.nomorPlot}<br>
             <strong>Pokok:</strong> ${data.nomorPokok}<br>
             <strong>Daun:</strong> ${data.nomorDaun}<br><br>
             <strong>N%:</strong> ${data.n} | <strong>P%:</strong> ${data.p} | <strong>K%:</strong> ${data.k}<br>
-            <strong>Ca%:</strong> ${data.ca} | <strong>Mg%:</strong> ${data.mg} | <strong>B:</strong> ${data.b} ppm<br><br>
+            <strong>Ca%:</strong> ${data.ca} | <strong>Mg%:</strong> ${data.mg} | <strong>B:</strong> ${data.b} ppm<br><br>`;
+
+        // Tambahkan foto jika ada
+        if (data.foto) {
+            popupContent += `
+                <img src="${data.foto}" alt="Foto Tanaman" width="100" style="margin-top:8px; border-radius:6px;"><br><br>
+            `;
+        }
+
+        // Tambahkan tombol rute
+        popupContent += `
             <button onclick="bukaRute(${lat}, ${lon})" style="margin-top:5px;padding:4px 8px;">🧭 Rute ke Lokasi</button>
-        `);
+        `;
+
+        marker.bindPopup(popupContent);
     });
 }
 
