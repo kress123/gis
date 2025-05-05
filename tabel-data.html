@@ -1,85 +1,178 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Koordinat</title>
-
-    <!-- CSS Leaflet, FontAwesome, Chart.js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="tabel-data.css"> 
-
-    <!-- JS Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Koordinat</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <link rel="stylesheet" href="tabel-data.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <!-- Sidebar -->
 <aside class="sidebar">
-    <div class="logo-container">
-        <img src="logo.png" alt="Logo Sampoerna Agro">
-    </div>
-    <h2>WebGIS Sampoerna Agro</h2>
-    <ul>
-        <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-        <li><a href="peta.html"><i class="fas fa-map"></i> Peta</a></li>
-        <li><a href="tabel-data.html" class="active"><i class="fas fa-database"></i> Data Koordinat</a></li>
-        <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-    </ul>
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo Sampoerna Agro"/>
+  </div>
+  <h2>WebGIS Sampoerna Agro</h2>
+  <ul>
+    <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+    <li><a href="peta.html"><i class="fas fa-map"></i> Peta</a></li>
+    <li><a href="tabel-data.html" class="active"><i class="fas fa-database"></i> Data Koordinat</a></li>
+    <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+  </ul>
 </aside>
 
 <!-- Main Content -->
 <main class="main-content">
-    <header class="dashboard-header">
-        <h1>Data Koordinat & Analisis Pupuk</h1>
-    </header>
+  <header class="dashboard-header">
+    <h1>Data Koordinat & Analisis Pupuk</h1>
+  </header>
 
-    <!-- Tabel Data -->
-    <section class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Lab ID</th>
-                    <th>Blok</th>
-                    <th>Nomor Plot</th>
-                    <th>Nomor Pokok</th>
-                    <th>Nomor Daun</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>N%</th>
-                    <th>P%</th>
-                    <th>K%</th>
-                    <th>Ca%</th>
-                    <th>Mg%</th>
-                    <th>B (ppm)</th>
-                    <th>Periode Pupuk</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody id="dataTabelBody">
-                <!-- Data akan diisi dengan JavaScript -->
-            </tbody>
-        </table>
-    </section>
+  
 
-    <!-- Grafik Analisis Pupuk -->
-    <section class="chart-container">
-        <h2>Analisis Pupuk & Unsur Hara</h2>
-        <canvas id="pupukChart"></canvas>
-    </section>
-
-    <!-- Peta untuk menampilkan lokasi -->
-    <section class="map-container">
-        <div id="map"></div>
-    </section>
+  <!-- Tabel Data -->
+  <section class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Lab ID</th>
+          <th>Blok</th>
+          <th>Nomor Plot</th>
+          <th>Nomor Pokok</th>
+          <th>Nomor Daun</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>N%</th>
+          <th>P%</th>
+          <th>K%</th>
+          <th>Ca%</th>
+          <th>Mg%</th>
+          <th>B (ppm)</th>
+          <th>Periode Pupuk</th>
+          <th>Foto</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="dataTabelBody">
+        <!-- Data dari JavaScript -->
+      </tbody>
+    </table>
+  </section>
+<!-- Grafik -->
+  <section class="chart-container">
+    <h2>Analisis Pupuk & Unsur Hara</h2>
+    <canvas id="pupukChart"></canvas>
+  </section>
+  <!-- Peta -->
+  <section class="map-container">
+    <div id="map" style="height: 400px;"></div>
+  </section>
 </main>
 
 <!-- JS -->
-<script src="tabel-data.js"></script>
-<script src="grafik-analisis.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const tbody = document.getElementById('dataTabelBody');
+  const STORAGE_KEY = 'koordinatData';
+
+  const map = L.map('map').setView([-2.5, 118], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+  window.zoomToLocation = function(lat, lng) {
+    map.setView([lat, lng], 15);
+    L.popup().setLatLng([lat, lng]).setContent("Lokasi Koordinat").openOn(map);
+  }
+
+  function renderChart(data) {
+    const ctx = document.getElementById("pupukChart").getContext("2d");
+
+    // Hapus chart lama jika ada
+    if (window.pupukChart) {
+        window.pupukChart.destroy();
+    }
+
+    const labels = data.map(item => item.labId || `ID ${item.no}`);
+    const nData = data.map(item => parseFloat(item.n));
+    const pData = data.map(item => parseFloat(item.p));
+    const kData = data.map(item => parseFloat(item.k));
+    const caData = data.map(item => parseFloat(item.ca));
+    const mgData = data.map(item => parseFloat(item.mg));
+    const bData = data.map(item => parseFloat(item.b));
+
+    window.pupukChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [
+                { label: "N%", data: nData, backgroundColor: "#4caf50" },
+                { label: "P%", data: pData, backgroundColor: "#2196f3" },
+                { label: "K%", data: kData, backgroundColor: "#ff9800" },
+                { label: "Ca%", data: caData, backgroundColor: "#9c27b0" },
+                { label: "Mg%", data: mgData, backgroundColor: "#f44336" },
+                { label: "B ppm", data: bData, backgroundColor: "#00bcd4" }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { stacked: true },
+                y: { stacked: false, beginAtZero: true }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Diagram Analisis Pupuk per Lab ID"
+                }
+            }
+        }
+    });
+  }
+
+  function renderTable() {
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    data.forEach((item, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `        
+        <td>${item.no}</td>
+        <td>${item.labId}</td>
+        <td>${item.blok}</td>
+        <td>${item.nomorPlot}</td>
+        <td>${item.nomorPokok}</td>
+        <td>${item.nomorDaun}</td>
+        <td>${item.latitude}</td>
+        <td>${item.longitude}</td>
+        <td>${item.n}</td>
+        <td>${item.p}</td>
+        <td>${item.k}</td>
+        <td>${item.ca}</td>
+        <td>${item.mg}</td>
+        <td>${item.b}</td>
+        <td>${item.periodePupuk || '-'}</td>
+        <td>${item.foto ? `<img src="${item.foto}" width="60" height="60">` : '-'}</td>
+        <td><button onclick="zoomToLocation(${item.latitude}, ${item.longitude})">Lihat Peta</button></td>
+      `;
+      tbody.appendChild(tr);
+
+      // Tambahkan marker
+      L.marker([item.latitude, item.longitude])
+        .addTo(map)
+        .bindPopup(`<b>${item.labId}</b>`);
+    });
+
+    // Render grafik analisis pupuk
+    renderChart(data);
+  }
+
+  renderTable();
+});
+</script>
 
 </body>
 </html>
